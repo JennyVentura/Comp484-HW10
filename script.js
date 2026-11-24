@@ -9,106 +9,156 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     $('.exercise-button').click(clickedExerciseButton);
 
     $('.cute-button').click(clickedCuteButton); // My new action button - for something cute to happen!
+})
   
-
+  // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
+  var pet_info = {name: "Pumpkin", weight: 12, happiness: 5, cuteness: 50}; // I added cuteness points
   
-    
-  })
-  
-    // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
-    var pet_info = {name: "Pumpkin", weight: 12, happiness: 5, cuteness: 50}; // I added cuteness points
+  console.table(pet_info); // show the array pet_info as a table
 
-    function notification(message) { // Notification function to display comment from pet
-      $(".notification")
-      .css({ // Because it said visual, and this is also another use for .css() = setting new properties and values
-        'background-color': '#cdfff8',
-        'border': '2px solid #baf2ff',
-        'border-radius': '10px',
-        'padding': '10px',
-        'margin-top': '10px',
-        'font-weight': 'bold'
-      })
-      .text(message) // Takes in a message when called, this keeps same message and prints it
-      .fadeIn(100) // How long takes to show up
-      .delay(1500) // How long it stays
-      .fadeOut(300); // How long it takes to dissapear after the above is finished
-    }
+  function notification(message) { // Notification function to display comment from pet
+    $(".notification")
+    .css({ // Because it said visual, and this is also another use for .css() = setting new properties and values
+      'background-color': '#cdfff8',
+      'border': '2px solid #baf2ff',
+      'border-radius': '10px',
+      'padding': '10px',
+      'margin-top': '10px',
+      'font-weight': 'bold'
+    })
+    .text(message) // Takes in a message when called, this keeps same message and prints it
+    .fadeIn(100) // How long takes to show up
+    .delay(1500) // How long it stays
+    .fadeOut(300); // How long it takes to dissapear after the above is finished
+  }
 
-    function clickedTreatButton() {
-      // Increase pet happiness
-      pet_info.happiness++;
+  function clickedTreatButton() {
+    // Increase pet happiness
+    pet_info.happiness++;
 
-      // Increase pet weight
-      pet_info.weight++;
+    // Increase pet weight
+    pet_info.weight++;
 
-      checkAndUpdatePetInfoInHtml(); // Updates properties
+    checkAndUpdatePetInfoInHtml(); // Updates properties
 
-      notification("Yay! I love treats!"); // He speaks!
-    }
-    
-    function clickedPlayButton() {
-      // Increase pet happiness
-      pet_info.happiness++;
+    notification("Yay! I love treats!"); // He speaks!
 
-      // Decrease pet weight
-      pet_info.weight--;
-
-      checkAndUpdatePetInfoInHtml();
-
-      notification("Let's play!");
-    }
-    
-    function clickedExerciseButton() {
-      // Decrease pet happiness
-      pet_info.happiness--;
-
-      // Decrease pet weight
-      pet_info.weight--;
-
-      checkAndUpdatePetInfoInHtml();
-
-      notification("I'm tired!");
-    }
-
-    function clickedCuteButton() {
-      // change image to tail wag
-      $(".pet-image").attr("src", "images/tail-wag.gif"); // Changing src attribute. It changes the main image to the gif I made
-
-      // add cuteness points
-      pet_info.cuteness++; // The cuter he gets, the happier he is, hence the tail wags. Cuteness points don't decrease, they can only increase
-
-      checkAndUpdatePetInfoInHtml();
-
-      notification("Meow");
-    }
-  
-    function checkAndUpdatePetInfoInHtml() {
-      checkWeightAndHappinessBeforeUpdating();  
-      updatePetInfoInHtml();
-    }
-    
-    function checkWeightAndHappinessBeforeUpdating() {
-      // Add conditional so if weight is lower than zero.
-      if(pet_info.weight < 0 || pet_info.happiness < 0) { // I added happiness cause I assume it can't be negative.
-        pet_info.weight = 0; // Set it equal to 0 because I assume it can't be neagtive. Even if it died, it would still never be negative. But for arguments sake, I put that it can go down to 0 because this is digital.
-        pet_info.happiness = 0; // If it could go below 0, then the player would have to dig themself out of that hole and I don't think they would enjoy that.
-      } else {
-        updatePetInfoInHtml(); // Updates if all good, won't go below zero if not
-      }
-    }
-    
-    // Updates your HTML with the current values in your pet_info object
-    function updatePetInfoInHtml() {
-      $('.name').text(pet_info['name']);
-      $('.weight').text(pet_info['weight']);
-      $('.happiness').text(pet_info['happiness']);
-      $('.cute').text(pet_info['cuteness']); // Updates the cuteness points (the above do the same for their categories)
-    }
-  
-    $(".survey").change(function(){ // The .change() detects a change in input tag in html and so this function occurs
-      alert("Thank you for your input!");
-      
-      $("html").css("background-color", "yellow"); // Background color now becomes a happy yellow upon completion of the survey, .css() is taking a css element and changing its value here
-
-      $(".pet-image").attr("src", "images/cute.gif"); // New gif unlocked
+    let treatCount = 0; // let var to count how many treats he has been given
+    $('.treat-button').addEventListener('click', () => { // everytime button is clicked 
+      const label = 'He is getting fat';
+      console.group(label);
+      console.info('You have given him ${++treatCount} treat(s)');
+      console.info('After 5 treats he will get fat');
+      console.info('Don\'t give him too many treats');
+      console.info('Seriously, don\'t make him over-weight');
+      console.groupEnd(label);
     });
+
+    if (treatCount >= 5) {
+      console.warn('Stop feeding him treats!');
+    }
+  }
+    
+  function clickedPlayButton() {
+    // Increase pet happiness
+    pet_info.happiness++;
+
+    // Decrease pet weight
+    pet_info.weight--;
+
+    checkAndUpdatePetInfoInHtml();
+
+    notification("Let's play!");
+
+    $('.play-button').addEventListener('click', () => {
+      const styles = 
+        `background-color: lightblue; color: black; padding: 2em; border: 1em solid blue; font-size: 2em;`;
+      console.log('%cHe loves to play!', styles); // custom log
+    });
+  }
+    
+  function clickedExerciseButton() {
+    // Decrease pet happiness
+    pet_info.happiness--;
+
+    // Decrease pet weight
+    pet_info.weight--;
+
+    checkAndUpdatePetInfoInHtml();
+
+    notification("I'm tired!");
+
+    logWarning(); // put function call before function
+
+    function logWarning() { // made a function for it
+      console.warn('Don\'t make him too tired please!'); // warning log + escaping apostrophe
+    }
+  }
+
+  function clickedCuteButton() {
+    // change image to tail wag
+    $(".pet-image").attr("src", "images/tail-wag.gif"); // Changing src attribute. It changes the main image to the gif I made
+
+    // add cuteness points
+    pet_info.cuteness++; // The cuter he gets, the happier he is, hence the tail wags. Cuteness points don't decrease, they can only increase
+
+    checkAndUpdatePetInfoInHtml();
+
+    notification("Meow");
+
+    $('.cute-button').addEventListener('click', () => {
+      console.log('He said Meow (=^･ω･^=)'); // log message
+    });
+  }
+  
+  function checkAndUpdatePetInfoInHtml() {
+    checkWeightAndHappinessBeforeUpdating();  
+    updatePetInfoInHtml();
+  }
+    
+  function checkWeightAndHappinessBeforeUpdating() {
+    // Add conditional so if weight is lower than zero.
+    if(pet_info.weight < 0 || pet_info.happiness < 0) { // I added happiness cause I assume it can't be negative.
+      pet_info.weight = 0; // Set it equal to 0 because I assume it can't be neagtive. Even if it died, it would still never be negative. But for arguments sake, I put that it can go down to 0 because this is digital.
+      pet_info.happiness = 0; // If it could go below 0, then the player would have to dig themself out of that hole and I don't think they would enjoy that.
+
+      console.error('He is now at 0 for both values'); // not quite a typical error, but since it doesn't go lower than 0, there is no threat per say
+    } else {
+      updatePetInfoInHtml(); // Updates if all good, won't go below zero if not
+    }
+  }
+    
+  // Updates your HTML with the current values in your pet_info object
+  function updatePetInfoInHtml() {
+    $('.name').text(pet_info['name']);
+    $('.weight').text(pet_info['weight']);
+    $('.happiness').text(pet_info['happiness']);
+    $('.cute').text(pet_info['cuteness']); // Updates the cuteness points (the above do the same for their categories)
+  }
+  
+  $(".survey").change(function(){ // The .change() detects a change in input tag in html and so this function occurs
+    alert("Thank you for your input!");
+      
+    $("html").css("background-color", "yellow"); // Background color now becomes a happy yellow upon completion of the survey, .css() is taking a css element and changing its value here
+
+    $(".pet-image").attr("src", "images/cute.gif"); // New gif unlocked
+  });
+
+  // For 404 error
+  $(".cute-button").addEventListener('click', () => {
+    $(".pet-image").attr("src", "images/he-cute.png"); // he-cute.png doesn't exist
+
+  });
+
+  // TypeError
+  const fancyCat = "happy"; // String
+  ++fancyCat; // not the same type
+
+  // Violation
+  $(".exercise-button").addEventListener('click', () => {
+  const napTime = 2000; // 2 seconds
+  const start = new Date().getTime();
+  while (new Date().getTime() < start + napTime) {
+    // nap
+  }
+});
