@@ -1,6 +1,6 @@
 # HW 10
 
-How to use Dev Tools.
+How to use DevTools.
 
 ## 🚀 Live Demo
 
