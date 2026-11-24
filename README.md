@@ -1,8 +1,8 @@
-# Project 2
+# HW 10
 
-Project for JavaScript.
+How to use Dev Tools.
 
 ## 🚀 Live Demo
 
 You can view the published website here:
-[Live Website on GitHub Pages](https://jennyventura.github.io/Comp484-Project2/)
+[Live Website on GitHub Pages](https://jennyventura.github.io/Comp484-HW10/)
