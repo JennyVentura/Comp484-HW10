@@ -9,6 +9,9 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     $('.exercise-button').click(clickedExerciseButton);
 
     $('.cute-button').click(clickedCuteButton); // My new action button - for something cute to happen!
+
+    $('.cute-error-button').click(clickedCuteErrorButton); // newest button for an error
+
 })
   
   // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
@@ -44,19 +47,13 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     notification("Yay! I love treats!"); // He speaks!
 
     let treatCount = 0; // let var to count how many treats he has been given
-    $('.treat-button').addEventListener('click', () => { // everytime button is clicked 
       const label = 'He is getting fat';
       console.group(label);
-      console.info('You have given him ${++treatCount} treat(s)');
+      console.info('You have given him a treat');
       console.info('After 5 treats he will get fat');
       console.info('Don\'t give him too many treats');
       console.info('Seriously, don\'t make him over-weight');
       console.groupEnd(label);
-    });
-
-    if (treatCount >= 5) {
-      console.warn('Stop feeding him treats!');
-    }
   }
     
   function clickedPlayButton() {
@@ -70,11 +67,13 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
 
     notification("Let's play!");
 
-    $('.play-button').addEventListener('click', () => {
-      const styles = 
+    custom();
+    
+    function custom() {
+        const styles = 
         `background-color: lightblue; color: black; padding: 2em; border: 1em solid blue; font-size: 2em;`;
-      console.log('%cHe loves to play!', styles); // custom log
-    });
+        console.log('%cHe loves to play!', styles); // custom log
+    }
   }
     
   function clickedExerciseButton() {
@@ -93,6 +92,8 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     function logWarning() { // made a function for it
       console.warn('Don\'t make him too tired please!'); // warning log + escaping apostrophe
     }
+
+    violation();
   }
 
   function clickedCuteButton() {
@@ -106,9 +107,16 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
 
     notification("Meow");
 
-    $('.cute-button').addEventListener('click', () => {
+    heTalks();
+
+    function heTalks() {
       console.log('He said Meow (=^･ω･^=)'); // log message
-    });
+    }
+  }
+
+  function clickedCuteErrorButton() { // introduced new button for 404 error
+    console.info('This doesn\'t exist...');
+    $(".pet-image").attr("src", "images/he-cute.png"); // he-cute.png doesn't exist
   }
   
   function checkAndUpdatePetInfoInHtml() {
@@ -144,21 +152,16 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     $(".pet-image").attr("src", "images/cute.gif"); // New gif unlocked
   });
 
-  // For 404 error
-  $(".cute-button").addEventListener('click', () => {
-    $(".pet-image").attr("src", "images/he-cute.png"); // he-cute.png doesn't exist
-
-  });
-
   // TypeError
   const fancyCat = "happy"; // String
   ++fancyCat; // not the same type
 
   // Violation
-  $(".exercise-button").addEventListener('click', () => {
-  const napTime = 2000; // 2 seconds
-  const start = new Date().getTime();
-  while (new Date().getTime() < start + napTime) {
-    // nap
+  function violation() {
+    const napTime = 2000; // 2 seconds
+    const start = new Date().getTime();
+    while (new Date().getTime() < start + napTime) {
+      // nap
+    }
   }
-});
+
