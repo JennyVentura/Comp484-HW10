@@ -164,4 +164,3 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
       // nap
     }
   }
-
